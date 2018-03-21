@@ -1,0 +1,13 @@
+--- # Looping playbook
+- hosts: 192.168.115.8
+  user: ansible
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: add a list of users
+     user: name={{ item }} state=absent
+     with_items:
+      - user1
+      - user2
+      - user3

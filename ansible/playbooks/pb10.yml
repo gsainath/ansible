@@ -1,0 +1,15 @@
+--- # status check
+- hosts: demall
+  user: ansible
+  sudo: yes
+  connection: ssh
+  tasks:
+   - name: Install apache
+     action: service name=httpd state=stopped
+   - name: Verify Service Status
+     shell: systemctl status httpd
+     register: result
+     until: result.stdout.find("active (running)") != -1
+     retries: 5
+     delay: 5
+   - debug: var=result

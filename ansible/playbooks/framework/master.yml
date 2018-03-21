@@ -1,0 +1,14 @@
+--- # master playbook for web servers
+ - hosts: all
+   user: ansible
+   sudo: yes
+   connection: ssh
+   pre_tasks:
+    - name: Start of role
+      raw: date > /home/ansible/framework.log
+   roles:
+    - { role: redhatwebservers, when: ansible_os_family == "RedHat"}
+    - { role: debianwebservers, when: ansible_os_family == "debian"}
+   post_tasks:
+    - name: End of role
+      raw: date >> /home/ansible/framework.log

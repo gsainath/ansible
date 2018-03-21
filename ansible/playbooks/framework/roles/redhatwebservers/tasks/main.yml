@@ -1,0 +1,10 @@
+- name: Install Apache on Centos
+  yum: pkg='{{ redhat_apache}}' state=latest
+  when: ansible_os_family == "RedHat"
+  notify: Restart httpd
+  ignore_errors: yes
+- name: Install Apache on Ubuntu
+  apt: pkg='{{ debian_apache}}' state=latest
+  when: ansible_os_family == "Debian"
+  notify: Restart apache2
+  ignore_errors: yes

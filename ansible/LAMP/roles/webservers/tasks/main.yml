@@ -1,0 +1,16 @@
+--- # Tasks installs and enables apache on webservers
+    # These tasks installs and enables php relates packages
+ - name: ensure apache,php related packages is installed
+   apt: name={{ item }} state=latest
+   with_items:
+    - apache2
+    - php
+    - php-mysql
+    - python-pip
+ - name: ensure apache is running
+   service: name=apache2 state=running enabled=yes
+ - name: copy files to document root
+   copy: src=cloud.png dest=/var/www/html/cloud.png
+ - name: copy application code to document root
+   template: src=index.php.j2 dest=/var/www/html/index.php
+   notify: restart apache

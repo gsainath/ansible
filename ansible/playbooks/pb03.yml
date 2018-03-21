@@ -1,0 +1,12 @@
+--- # my second YAML playbook
+- hosts: demall
+  user: ansible
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  vars:
+   - pkgname: httpd
+  tasks:
+   - name: Install httpd on servers
+     yum: pkg='{{ pkgname}}' state=absent
+

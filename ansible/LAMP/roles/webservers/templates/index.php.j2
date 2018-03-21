@@ -1,0 +1,28 @@
+<html>
+<head>
+       <title>CloudAcademy Ansible Demo</title>
+</head>
+<body>
+    <h3>
+        Thank you for reading this post. My IP Address is {{ ansible_enp0s8.ipv4.address }}. 
+        This is {{ ansible_system }} OS with {{ ansible_userspace_architecture }} architecture
+    </h3>
+    <p>
+        <strong>List of Databases:</strong> <br/>
+    <?php 
+
+    $dbobj = mysql_connect('{{ ansible_lo.ipv4.address }}', 'root', 'root');
+
+    if (!$dbobj) { die('Could not connect: ' . mysql_error()); }
+
+    $result = mysql_query("SHOW DATABASES");
+    while ($res = mysql_fetch_assoc($result)){
+        echo $res['Database'] . "<br/>";
+    }
+
+    ?>
+    </p>
+    <br/>
+    <p><img src="cloud.png" alt="CloudAcademy Logo"></p>
+</body>
+</html>

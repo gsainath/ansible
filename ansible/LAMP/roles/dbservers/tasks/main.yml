@@ -1,0 +1,15 @@
+--- # these tasks installs and enables apache on webservers
+ - name: ensure mysql is installed
+   apt: name={{ item }} state=present
+   with_items:
+    - mysql-server
+    - python-dev
+    - libmysqlclient-dev
+ - name: MySQL-python
+   raw: pip install MySQL-python
+ - name: ensure mysql is running
+   service: name=mysql state=restarted 
+ - name: create application database
+   mysql_db: name=ansible_db state=present
+ - name: create application user
+   mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL state=present login_user=root login_password="root"

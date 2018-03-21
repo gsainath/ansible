@@ -1,0 +1,16 @@
+--- # example
+ - hosts: all
+   user: ansible
+   sudo: yes
+   connection: ssh
+   gather_facts: no
+   vars_prompt:
+    - name: "name"
+      prompt: "name?"
+    - name: "quest"
+      prompt: "quest?"
+    - name: "favcolor"
+      prompt: "color?"
+   tasks:
+    - name: echoing
+      shell: echo {{ name}} {{ quest}} {{ favcolor}} > /home/ansible/prompt.txt
